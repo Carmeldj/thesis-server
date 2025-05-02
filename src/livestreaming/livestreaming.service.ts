@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { StreamClient, UserRequest } from '@stream-io/node-sdk';
 import { UserService } from 'src/user/user.service';
 import { v4 as uuidv4 } from 'uuid';
-import { LiveStream } from './entities/stream.entity';
+import { LiveStream } from './entities/live-stream.entity';
 import { Repository } from 'typeorm';
 @Injectable()
 export class LivestreamingService {
@@ -56,11 +56,13 @@ export class LivestreamingService {
     let members: string[] = [];
     members.push(id);
 
-    this.liveStreamRepository.create({
+    const stream = this.liveStreamRepository.create({
       id: streamId,
       userId: id,
       members: members,
     });
+
+    await this.liveStreamRepository.save(stream);
 
     return {
       streamId: streamId,
@@ -82,13 +84,16 @@ export class LivestreamingService {
       where: { id: streamId },
     });
 
-    stream!.members!.push(id);
+    if (!stream!.members!.find((el) => el === id)) {
+      stream!.members!.push(id);
+    }
 
     await this.liveStreamRepository.save(stream!);
 
     return {
       streamId: streamId,
       callType: callType,
+      members: stream!.members,
     };
   }
 
@@ -109,5 +114,11 @@ export class LivestreamingService {
     await this.liveStreamRepository.save(stream!);
 
     return { message: 'User removed from the call' };
+  }
+
+  findOneLiveStream(id: string) {
+    return this.liveStreamRepository.findOne({
+      where: { id: id },
+    });
   }
 }

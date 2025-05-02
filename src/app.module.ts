@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { User } from './user/entities/user.entity';
 import { LivestreamingModule } from './livestreaming/livestreaming.module';
+import { LiveStream } from './livestreaming/entities/live-stream.entity';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { LivestreamingModule } from './livestreaming/livestreaming.module';
       username: process.env.DB_USERNAME,
       database: process.env.DB_NAME,
       logging: true,
-      entities: [User],
+      entities: [User, LiveStream],
     }),
     LivestreamingModule,
   ],

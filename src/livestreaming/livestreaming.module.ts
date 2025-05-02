@@ -3,7 +3,7 @@ import { LivestreamingService } from './livestreaming.service';
 import { LivestreamingController } from './livestreaming.controller';
 import { UserModule } from 'src/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { LiveStream } from './entities/stream.entity';
+import { LiveStream } from './entities/live-stream.entity';
 
 @Module({
   imports: [UserModule, TypeOrmModule.forFeature([LiveStream])],

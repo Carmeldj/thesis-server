@@ -1,4 +1,4 @@
-import { Controller, Param, Post } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { LivestreamingService } from './livestreaming.service';
 
 @Controller('livestreaming')
@@ -22,11 +22,16 @@ export class LivestreamingController {
     return this.livestreamingService.joinLiveStream(userId, streamId);
   }
 
-  @Post('livestream/:userId/:streamId/leave')
+  @Delete('livestream/:userId/:streamId/')
   leaveLiveStream(
     @Param('userId') userId: string,
     @Param('streamId') streamId: string,
   ) {
     return this.livestreamingService.leaveLiveStream(userId, streamId);
+  }
+
+  @Get('livestream/:streamId')
+  getLiveStream(@Param('streamId') streamId: string) {
+    return this.livestreamingService.findOneLiveStream(streamId);
   }
 }
