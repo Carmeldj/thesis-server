@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { User } from './user/entities/user.entity';
+import { LivestreamingModule } from './livestreaming/livestreaming.module';
 
 @Module({
   imports: [
@@ -19,12 +20,13 @@ import { User } from './user/entities/user.entity';
       username: process.env.DB_USERNAME,
       database: process.env.DB_NAME,
       logging: true,
-      entities: [User]
+      entities: [User],
     }),
+    LivestreamingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {
-  constructor(private dataSource: DataSource) { }
+  constructor(private dataSource: DataSource) {}
 }
