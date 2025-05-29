@@ -9,6 +9,6 @@ import { LiveStream } from './entities/live-stream.entity';
   imports: [UserModule, TypeOrmModule.forFeature([LiveStream])],
   controllers: [LivestreamingController],
   providers: [LivestreamingService],
-  exports: [],
+  exports: [LivestreamingService],
 })
 export class LivestreamingModule {}

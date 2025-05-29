@@ -8,6 +8,7 @@ import { DataSource } from 'typeorm';
 import { User } from './user/entities/user.entity';
 import { LivestreamingModule } from './livestreaming/livestreaming.module';
 import { LiveStream } from './livestreaming/entities/live-stream.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { LiveStream } from './livestreaming/entities/live-stream.entity';
       entities: [User, LiveStream],
     }),
     LivestreamingModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,10 +1,11 @@
 import { Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { LivestreamingService } from './livestreaming.service';
 
-@Controller('livestreaming')
+@Controller()
 export class LivestreamingController {
   constructor(private readonly livestreamingService: LivestreamingService) {}
-  @Post(':id')
+
+  @Post('users/:id/livestream')
   createUser(@Param('id') id: string) {
     return this.livestreamingService.createUser(id);
   }

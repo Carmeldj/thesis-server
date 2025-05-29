@@ -6,6 +6,7 @@ import { UserService } from 'src/user/user.service';
 import { v4 as uuidv4 } from 'uuid';
 import { LiveStream } from './entities/live-stream.entity';
 import { Repository } from 'typeorm';
+
 @Injectable()
 export class LivestreamingService {
   constructor(
@@ -32,7 +33,7 @@ export class LivestreamingService {
 
     const token = this.client.generateUserToken({
       user_id: id,
-      validity_in_seconds: 3600,
+      validity_in_seconds: 100000,
     });
 
     return {
@@ -49,7 +50,7 @@ export class LivestreamingService {
     call.create({
       data: {
         created_by_id: id,
-        members: [{ user_id: id, role: 'user' }],
+        members: [{ user_id: id, role: 'host' }],
       },
     });
 
@@ -66,7 +67,6 @@ export class LivestreamingService {
 
     return {
       streamId: streamId,
-      callType: callType,
     };
   }
 
