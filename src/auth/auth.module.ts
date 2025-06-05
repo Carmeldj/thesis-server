@@ -12,7 +12,7 @@ import { LivestreamingModule } from 'src/livestreaming/livestreaming.module';
     UserModule,
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
+      secret: 'process.env.JWT_SECRET',
       signOptions: { expiresIn: '7d' },
     }),
     LivestreamingModule,

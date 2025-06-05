@@ -10,6 +10,11 @@ export class LivestreamingController {
     return this.livestreamingService.createUser(id);
   }
 
+  @Post('users/:id/livestream/token')
+  createUserToken(@Param(':id') id: string) {
+    return this.livestreamingService.createUserToken(id);
+  }
+
   @Post('livestream/:userId')
   createLiveStream(@Param('userId') userId: string) {
     return this.livestreamingService.createLiveStream(userId);

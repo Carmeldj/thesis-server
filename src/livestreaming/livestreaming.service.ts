@@ -42,12 +42,23 @@ export class LivestreamingService {
     };
   }
 
+  async createUserToken(id: string) {
+    const token = this.client.generateUserToken({
+      user_id: id,
+      validity_in_seconds: 100000,
+    });
+
+    return {
+      token: token,
+    };
+  }
+
   async createLiveStream(id: string) {
     const callType = 'livestream';
     const streamId = uuidv4();
     const call = this.client.video.call(callType, streamId);
 
-    call.create({
+    call.getOrCreate({
       data: {
         created_by_id: id,
         members: [{ user_id: id, role: 'host' }],
